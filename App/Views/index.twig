@@ -1,0 +1,87 @@
+{% extends "layouts/main.twig" %}
+
+{% block content %}
+<div class="container">
+    <div class="row py-3">
+        <div class="col">
+            <a href="/tasks/create" class="btn btn-success">Create Task</a>
+        </div>
+        <div class="col text-end">
+            {% if isAuth %}
+            <a href="/logout" class="btn btn-primary">Sign Out</a>
+            {% else %}
+            <a href="/login" class="btn btn-primary">Sign In</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if message %}
+        <div class="alert alert-{{ message.type }} alert-dismissible fade show" role="alert">
+            {{ message.text }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">
+            {% if sortKey=='name' and sortValue=='asc' %}
+                <a href="/?sortKey=name&sortValue=desc">Name <span>&#8593;</span></a>
+            {% elseif sortKey=='name' and sortValue=='desc' %}
+                <a href="/">Name <span>&#8595;</span></a>
+            {% else %}
+                <a href="/?sortKey=name&sortValue=asc">Name</a>
+            {% endif %}
+            </th>
+            <th scope="col">
+            {% if sortKey=='email' and sortValue=='asc' %}
+                <a href="/?sortKey=email&sortValue=desc">Email <span>&#8593;</span></a>
+            {% elseif sortKey=='email' and sortValue=='desc' %}
+                <a href="/">Email <span>&#8595;</span></a>
+            {% else %}
+                <a href="/?sortKey=email&sortValue=asc">Email</a>
+            {% endif %}
+            </th>
+            <th scope="col">Description</th>
+            <th scope="col">
+            {% if sortKey=='is_done' and sortValue=='asc' %}
+                <a href="/?sortKey=is_done&sortValue=desc">Status <span>&#8593;</span></a>
+            {% elseif sortKey=='is_done' and sortValue=='desc' %}
+                <a href="/">Status <span>&#8595;</span></a>
+            {% else %}
+                <a href="/?sortKey=is_done&sortValue=asc">Status</a>
+            {% endif %}
+            </th>
+            {% if isAuth %}
+            <th class="text-end">Actions</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+        <tr>
+            <th>{{ task.name }}</th>
+            <td>{{ task.email }}</td>
+            <td>{{ task.description }}</td>
+            <td>
+            {% if task.is_done %}
+                <span class="badge bg-primary">Done</span>
+            {% endif %}
+            </td>
+            {% if isAuth %}
+                <td class="text-end">
+                    <a href="/tasks/edit/{{ task.id }}" class="btn btn-primary btn-sm">Edit</a>
+                </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if pagination %}
+    <div class="py-2">
+        {{ pagination|raw }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

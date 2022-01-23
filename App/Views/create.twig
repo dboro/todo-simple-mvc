@@ -1,0 +1,46 @@
+{% extends "layouts/main.twig" %}
+
+{% block content %}
+<div class="container">
+    <form method="post" action="/tasks/store">
+        <div class="row py-3">
+            <div class="col">
+                <button type="submit" class="btn btn-success">Save</button>
+                <a href="/" class="btn btn-secondary ms-2">Cancel</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name">
+                    {% if errors.name %}
+                    <div class="invalid-feedback d-block">
+                        {{ errors.name|join }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email">
+                    {% if errors.email %}
+                        <div class="invalid-feedback d-block">
+                            {{ errors.email|join }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description"></textarea>
+                    {% if errors.description %}
+                        <div class="invalid-feedback d-block">
+                            {{ errors.description|join }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
