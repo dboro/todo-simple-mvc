@@ -55,7 +55,8 @@ class TasksController extends Controller
     public function create()
     {
         echo $this->view->render('create.twig', [
-            'errors' => $this->getFlash('errors')
+            'errors' => $this->getFlash('errors'),
+            'task' => $this->getFlash('task')
         ]);
     }
 
@@ -69,6 +70,7 @@ class TasksController extends Controller
 
         if ($validation->fails()) {
             $this->setFlash('errors', $validation->errors()->toArray());
+            $this->setFlash('task', $validation->getValidatedData());
             $this->redirect('/tasks/create');
         }
         else {

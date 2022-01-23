@@ -14,7 +14,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" value="{{ task.name }}" class="form-control" name="name">
                     {% if errors.name %}
                     <div class="invalid-feedback d-block">
                         {{ errors.name|join }}
@@ -23,7 +23,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email">
+                    <input type="email" value="{{ task.email }}" class="form-control" name="email">
                     {% if errors.email %}
                         <div class="invalid-feedback d-block">
                             {{ errors.email|join }}
@@ -32,7 +32,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Description</label>
-                    <textarea class="form-control" name="description"></textarea>
+                    <textarea class="form-control" name="description">{{ task.description }}</textarea>
                     {% if errors.description %}
                         <div class="invalid-feedback d-block">
                             {{ errors.description|join }}
